@@ -2,6 +2,7 @@
 #define _TCP_SERVER_H_
 
 #include <memory>
+#include <string>
 #include <map>
 #include <functional>
 #include <atomic>

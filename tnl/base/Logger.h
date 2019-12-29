@@ -10,6 +10,7 @@
 
 namespace tnl
 {
+
 #define LOG_TRACE(format, ...) \
     if (Logger::TRACE >= Logger::logLevel()) \
         Logger(__FILE__, __LINE__, __FUNCTION__, Logger::TRACE).log(format, ##__VA_ARGS__)
@@ -29,8 +30,6 @@ namespace tnl
 #define LOG_FATAL(format, ...) \
     if (Logger::FATAL >= Logger::logLevel()) \
         Logger(__FILE__, __LINE__, __FUNCTION__, Logger::FATAL).log(format, ##__VA_ARGS__)
-
-
 
 class Logger : noncopyable
 {
@@ -99,5 +98,7 @@ private:
 };
 
 } // namespace tnl
+
+using tnl::Logger;
 
 #endif // _LOGGER_H_

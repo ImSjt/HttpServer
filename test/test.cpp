@@ -1,5 +1,6 @@
 #include <iostream>
 #include <functional>
+#include <memory>
 
 using namespace std;
 
@@ -24,19 +25,21 @@ public:
     ~Test()
     {
         cout<<"destruct"<<endl;
-    }  
+    } 
+
+    void print()
+    {
+        cout<<"test"<<endl;
+    }
 };
-
-void func(const Test& t)
-{
-
-}
 
 int main()
 {
     std::function<void()> f;
-    f = std::bind(func, Test());
-
+    std::shared_ptr<Test> t(new Test);
+    cout<<"use count:"<<t.use_count()<<endl;
+    f = std::bind(&Test::print, t);
+    cout<<"use count:"<<t.use_count()<<endl;
     f();
 
     return 0;

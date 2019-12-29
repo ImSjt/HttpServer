@@ -76,7 +76,8 @@ void TcpConnection::shutdown()
 {
     if (mState == Connected)
     {
-        setState(Disconnected);
+        //setState(Disconnected);
+        setState(Disconnecting);
         mLoop->runInLoop(std::bind(&TcpConnection::shutdownInLoop, this));
     }
 }
@@ -278,6 +279,7 @@ void TcpConnection::shutdownInLoop()
 {
     assert(mLoop->isInLoopThread());
 
+    LOG_TRACE("state=%s", stateToString());
     if (!mChannel->isWriting())
     {
         mSocket->shutdownWrite();

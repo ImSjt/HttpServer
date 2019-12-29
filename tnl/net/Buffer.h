@@ -152,6 +152,11 @@ public:
         append(static_cast<const char*>(data), len);
     }
 
+    void append(const std::string& message)
+    {
+        append(message.c_str(), message.size());
+    }
+
     void ensureWritableBytes(size_t len)
     {
         if (writableBytes() < len)
