@@ -1,5 +1,7 @@
 #include <fcntl.h>
 #include <unistd.h>
+ #include <sys/types.h>
+#include <sys/stat.h>
 #include <assert.h>
 #include <functional>
 
@@ -57,5 +59,9 @@ void Acceptor::handleRead()
     else
     {
         LOG_ERROR("accept fd < 0");
+        // sockets::close(mIdleFd);
+        // mIdleFd = ::accept(mAcceptSocket.fd(), NULL, NULL);
+        // sockets::close(mIdleFd);
+        // mIdleFd = sockets::createNonblockingOrDie();
     }
 }

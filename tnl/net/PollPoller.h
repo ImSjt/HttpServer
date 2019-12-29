@@ -22,6 +22,7 @@ public:
     virtual void updateChannel(Channel* channel) override;
     virtual void removeChannel(Channel* channel) override;
 
+private:
     void fillActiveChannels(int num, ChannelList& activeChannels);
 
 private:

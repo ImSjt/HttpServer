@@ -14,13 +14,14 @@ int main(int argc, char* argv[])
     Channel* channel = new Channel(loop, 0);
 
     channel->setReadCallback([channel](){
+        std::cout<<"read callback"<<std::endl;
         char buf[256];
         int num = read(0, buf, sizeof buf);
         buf[num] = '\0';
         std::cout<<buf<<std::endl;
 
-        channel->disableAll();
-        channel->remove();
+        //channel->disableAll();
+        //channel->remove();
     });
     channel->enableReading();
 

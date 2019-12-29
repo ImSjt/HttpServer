@@ -1,6 +1,6 @@
 OBJ = Channel.o Poller.o PollPoller.o SocketsOps.o EventLoop.o EventLoopThread.o \
 		Timer.o TimerQueue.o Socket.o InetAddress.o Acceptor.o Buffer.o \
-		EventLoopThreadPool.o TcpConnection.o TcpServer.o
+		EventLoopThreadPool.o TcpConnection.o TcpServer.o EPollPoller.o
 
 DIR_HTTP = $(shell pwd)/http
 OBJ_HTTP = $(DIR_HTTP)/build-in.o

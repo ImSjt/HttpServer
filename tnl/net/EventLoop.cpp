@@ -10,6 +10,7 @@
 #include "tnl/net/EventLoop.h"
 #include "tnl/net/SocketsOps.h"
 #include "tnl/net/PollPoller.h"
+#include "tnl/net/EPollPoller.h"
 
 using namespace tnl;
 using namespace tnl::net;
@@ -28,7 +29,7 @@ static int createEventfd()
 EventLoop::EventLoop() :
     mThreadId(CurThread::tid()),
     mLoop(false),
-    mPoller(new PollPoller(this)),
+    mPoller(new EPollPoller(this)),
     mWakeupFd(createEventfd()),
     mWakeupChannel(new Channel(this, mWakeupFd)),
     mEventHandling(false),
@@ -64,11 +65,11 @@ void EventLoop::loop()
         }
         else if (num == 0)
         {
-            // LOG_TRACE("no channel ready");
+            LOG_TRACE("no channel ready");
         }
         else
         {
-            // LOG_TRACE("handle %d channel", mActiveChannels.size());
+            LOG_TRACE("handle %d channel", mActiveChannels.size());
 
             mEventHandling = true;
 

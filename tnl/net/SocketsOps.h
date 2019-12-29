@@ -12,7 +12,7 @@ namespace net
 namespace sockets
 {
 
-int createNonblockingOrDie(sa_family_t family);
+int createNonblockingOrDie(sa_family_t family = AF_INET);
 
 int  connect(int sockfd, const struct sockaddr* addr);
 void bindOrDie(int sockfd, const struct sockaddr* addr);

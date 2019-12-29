@@ -38,6 +38,7 @@ private:
     bool mListenning;
     NewConnectionCallback mNewConnectionCallback;
 
+//    int mIdleFd;
 };
 
 } // namespace net

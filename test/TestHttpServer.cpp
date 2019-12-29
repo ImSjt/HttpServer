@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "tnl/base/Logger.h"
 #include "tnl/net/EventLoop.h"
 #include "tnl/net/http/HttpServer.h"
@@ -6,17 +8,17 @@ using namespace tnl;
 using namespace tnl::net;
 
 extern char favicon[555];
-bool benchmark = false;
+bool benchmark = true;
 
 void httpHandler(const HttpRequest& req, HttpResponse& resp)
 {
-    LOG_TRACE("Headers %s %s", req.methodString(), req.path().c_str());
+    //std::cout<<"Headers "<<req.methodString()<<" "<<req.path()<<std::endl;
     if (!benchmark)
     {
         const std::map<std::string, std::string>& headers = req.headers();
         for (const auto& header : headers)
         {
-            LOG_TRACE("%s: %s", header.first.c_str(), header.second.c_str());
+            std::cout<<header.first.c_str()<<": "<<header.second.c_str()<<std::endl;
         }
     }
 
@@ -28,7 +30,7 @@ void httpHandler(const HttpRequest& req, HttpResponse& resp)
         resp.addHeader("Server", "Muduo");
         //std::string now = Timestamp::now().toFormattedString();
         resp.setBody("<html><head><title>This is title</title></head>"
-                        "<body><h1>Hello</h1>Now is " 
+                        "<body><h1>Hello</h1>Now" 
                         "</body></html>");
     }
     else if (req.path() == "/favicon.ico")
@@ -43,7 +45,7 @@ void httpHandler(const HttpRequest& req, HttpResponse& resp)
         resp.setStatusCode(HttpResponse::Code200Ok);
         resp.setStatusMessage("OK");
         resp.setContentType("text/plain");
-        resp.addHeader("Server", "Muduo");
+        resp.addHeader("Server", "TNL");
         resp.setBody("hello, world!\n");
     }
     else
@@ -56,6 +58,8 @@ void httpHandler(const HttpRequest& req, HttpResponse& resp)
 
 int main(int argc, char* argv[])
 {
+    Logger::setLogLevel(Logger::WARN);
+
     tnl::net::EventLoop loop;
 
     HttpServer httpServer(&loop, tnl::net::InetAddress("0.0.0.0", 9859),
